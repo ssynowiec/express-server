@@ -5,7 +5,7 @@
   "main": "src/index.ts",
   "scripts": {
     "test": "jest",
-    "dev": "tsx src/index.ts"
+    "dev": "tsx src/server.ts"
   },
   "keywords": [],
   "author": "",

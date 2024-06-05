@@ -1,9 +1,10 @@
 import uuidValidate from 'uuid-validate';
-import { events } from '../db/schema';
+import { events } from './events.schema';
 import { eq } from 'drizzle-orm';
-import { db } from '../src';
+import type { Response } from 'express';
+import { db } from '../../db.config';
 
-export const checkEventExists = async (id: string, res) => {
+export const checkEventExists = async (id: string, res: Response) => {
   if (!uuidValidate(id)) {
     res.status(400).send('Invalid UUID format');
     return;
