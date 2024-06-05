@@ -70,3 +70,15 @@ describe(`GET /api/start-event/${eventId}`, () => {
       });
   });
 });
+
+describe(`DELETE /api/event/${eventId}`, () => {
+  it('should delete event', async () => {
+    return request(app)
+      .delete(`/api/event/${eventId}`)
+      .expect('Content-Type', /json/)
+      .expect(200)
+      .then((res) => {
+        expect(res.statusCode).toBe(200);
+      });
+  });
+});

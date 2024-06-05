@@ -60,3 +60,13 @@ export const startEvent = async (req: Request, res: Response) => {
 
   res.json(updatedEvent[0]);
 };
+
+export const deleteEvent = async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  const event = await checkEventExists(id, res);
+
+  await db.delete(events).where(eq(events.id, id));
+
+  res.json(event[0]);
+};
