@@ -5,7 +5,9 @@
   "main": "src/index.ts",
   "scripts": {
     "test": "jest",
-    "dev": "tsx src/server.ts"
+    "init:db": "docker compose up",
+    "dev:server": "tsx src/server.ts",
+    "dev": "concurrently \"pnpm init:db\" \"pnpm dev:server\""
   },
   "keywords": [],
   "author": "",
@@ -19,6 +21,7 @@
     "@types/supertest": "^6.0.2",
     "@types/uuid": "^9.0.8",
     "@types/uuid-validate": "^0.0.3",
+    "concurrently": "^8.2.2",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "drizzle-kit": "^0.22.1",
