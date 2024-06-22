@@ -47,6 +47,7 @@ export const getSessionBySessionId = async (req: Request, res: Response) => {
         attributes: {
           username: user[0].username,
           avatar_url: user[0].avatar_url,
+          email: user[0].email,
         },
       },
     });
