@@ -6,6 +6,7 @@ import {
   timestamp,
   uuid,
 } from 'drizzle-orm/pg-core';
+import { adminTable } from '../admins/admins.schema';
 
 export const eventStatusEnum = pgEnum('eventStatus', [
   'active',
@@ -29,4 +30,7 @@ export const events = pgTable('events', {
   createdAt: timestamp('created_at').notNull().defaultNow(),
   eventCode: text('event_code').default(''),
   progress: eventProgressEnum('progress').notNull().default('not-started'),
+  authorId: text('author_id')
+    .notNull()
+    .references(() => adminTable.id),
 });
