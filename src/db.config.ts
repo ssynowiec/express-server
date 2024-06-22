@@ -1,12 +1,13 @@
-import { neon } from '@neondatabase/serverless';
-import { drizzle } from 'drizzle-orm/neon-http';
+import { drizzle } from 'drizzle-orm/postgres-js';
 import { events } from './modules/events/events.schema';
+
 import dotenv from 'dotenv';
+import postgres from 'postgres';
 
 dotenv.config();
 
-const sql = neon(process.env.DATABASE_URL);
+const queryClient = postgres(process.env.DATABASE_URL);
 
 const schema = { ...events };
 
-export const db = drizzle(sql, { schema });
+export const db = drizzle(queryClient, { schema });

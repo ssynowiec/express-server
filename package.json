@@ -41,6 +41,7 @@
   "dependencies": {
     "@neondatabase/serverless": "^0.9.3",
     "drizzle-orm": "^0.31.0",
-    "drizzle-zod": "^0.5.1"
+    "drizzle-zod": "^0.5.1",
+    "postgres": "^3.4.4"
   }
 }
