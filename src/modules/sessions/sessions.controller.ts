@@ -42,7 +42,13 @@ export const getSessionBySessionId = async (req: Request, res: Response) => {
 
     res.status(200).json({
       session: { ...session[0], attributes: {} },
-      user: { ...user[0], attributes: { username: user[0].username } },
+      user: {
+        ...user[0],
+        attributes: {
+          username: user[0].username,
+          avatar_url: user[0].avatar_url,
+        },
+      },
     });
     // res.status(200).json([
     //   { ...session[0], attributes: {} },
