@@ -72,7 +72,7 @@ facebookRoutes.get('/callback', async (req, res) => {
       id: userId,
       username: facebookUser.login,
       email: facebookUser.email,
-      github_id: facebookUser.id,
+      facebook_id: facebookUser.id,
       avatar_url: facebookUser.picture.data.url,
     });
 
