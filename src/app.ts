@@ -6,6 +6,7 @@ import answersRoutes from './modules/answers/answers.routes';
 import adminsRoutes from './modules/admins/admins.routes';
 import sessionsRoutes from './modules/sessions/sessions.routes';
 import { githubRouter } from './login/github';
+import { logoutRouter } from './auth/logout';
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.use('/api', answersRoutes);
 app.use('/api', adminsRoutes);
 app.use('/api', sessionsRoutes);
 app.use('/login/github', githubRouter);
+app.use('/logout', logoutRouter);
 
 app.get('/api', (req, res) => {
   res.status(200).send('Hello World!');
