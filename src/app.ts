@@ -10,6 +10,7 @@ import { logoutRouter } from './auth/logout';
 import { validateSessionRoute } from './auth/validateRequests';
 import { facebookRoutes } from './login/facebook';
 import { googleRoutes } from './login/google';
+import { linkedinRoutes } from './login/linkedin';
 
 const app = express();
 
@@ -24,6 +25,7 @@ app.use('/api', sessionsRoutes);
 app.use('/login/github', githubRouter);
 app.use('/login/google', googleRoutes);
 app.use('/login/facebook', facebookRoutes);
+app.use('/login/linkedin', linkedinRoutes);
 app.use('/logout', logoutRouter);
 app.use('/session/me', validateSessionRoute);
 
