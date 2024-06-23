@@ -4,7 +4,7 @@ import { github } from '../auth/github';
 import { parseCookies, serializeCookie } from 'oslo/cookie';
 import { db } from '../db.config';
 import { eq } from 'drizzle-orm';
-import { adminTable, AdminType } from '../modules/admins/admins.schema';
+import { adminTable } from '../modules/admins/admins.schema';
 import { lucia } from '../auth/auth';
 import { generateId } from 'lucia';
 
@@ -52,12 +52,17 @@ githubRouter.get('/callback', async (req, res) => {
 
     const githubUser = await githubUserResponse.json();
 
-    const existingUser: AdminType = db
+    const existingUsers = await db
       .select()
       .from(adminTable)
-      .where(eq(adminTable.id, githubUser.id))[0];
+      .where(eq(adminTable.github_id, githubUser.id));
+
+    const existingUser = existingUsers[0];
+
+    console.log('existing user', existingUser);
 
     if (existingUser) {
+      console.log('user exists');
       const session = await lucia.createSession(existingUser.id, {});
 
       return res
