@@ -6,6 +6,7 @@ export const adminTable = pgTable('admin', {
   github_id: numeric('github_id'),
   google_id: numeric('google_id'),
   facebook_id: numeric('facebook_id'),
+  linkedin_id: text('linkedin_id'),
   username: text('username'),
   avatar_url: text('avatar_url'),
 });
