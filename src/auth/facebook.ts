@@ -1,8 +1,7 @@
 import { Facebook } from 'arctic';
-import { env } from '@/env';
 
 export const facebook = new Facebook(
-	env.FACEBOOK_CLIENT_ID!,
-	env.FACEBOOK_CLIENT_SECRET!,
-	'http://localhost:3000/login/facebook/callback',
+  process.env.FACEBOOK_CLIENT_ID!,
+  process.env.FACEBOOK_CLIENT_SECRET!,
+  'http://localhost:4001/login/facebook/callback',
 );

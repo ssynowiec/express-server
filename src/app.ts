@@ -8,6 +8,7 @@ import sessionsRoutes from './modules/sessions/sessions.routes';
 import { githubRouter } from './login/github';
 import { logoutRouter } from './auth/logout';
 import { validateSessionRoute } from './auth/validateRequests';
+import { facebookRoutes } from './login/facebook';
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.use('/api', answersRoutes);
 app.use('/api', adminsRoutes);
 app.use('/api', sessionsRoutes);
 app.use('/login/github', githubRouter);
+app.use('/login/facebook', facebookRoutes);
 app.use('/logout', logoutRouter);
 app.use('/session/me', validateSessionRoute);
 
