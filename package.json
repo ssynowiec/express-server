@@ -2,7 +2,7 @@
   "name": "express-server",
   "version": "1.0.0",
   "description": "",
-  "main": "src/index.ts",
+  "main": "src/server.ts",
   "scripts": {
     "test": "jest",
     "init:db": "docker compose up",
@@ -39,9 +39,14 @@
     "ws": "^8.17.0"
   },
   "dependencies": {
+    "@lucia-auth/adapter-drizzle": "^1.0.7",
     "@neondatabase/serverless": "^0.9.3",
+    "arctic": "^1.9.1",
     "drizzle-orm": "^0.31.0",
     "drizzle-zod": "^0.5.1",
-    "postgres": "^3.4.4"
+    "lucia": "^3.2.0",
+    "oslo": "^1.2.0",
+    "postgres": "^3.4.4",
+    "zod": "^3.23.8"
   }
 }

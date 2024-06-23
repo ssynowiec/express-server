@@ -1,5 +1,6 @@
 import { pgTable, text, timestamp } from 'drizzle-orm/pg-core';
 import { adminTable } from '../admins/admins.schema';
+import { z } from 'zod';
 
 export const sessionTable = pgTable('session', {
   id: text('id').primaryKey(),
@@ -11,3 +12,11 @@ export const sessionTable = pgTable('session', {
     mode: 'date',
   }).notNull(),
 });
+
+const sessionZodSchema = z.object({
+  id: z.string(),
+  userId: z.string(),
+  expiresAt: z.date(),
+});
+
+export type SessionType = z.infer<typeof sessionZodSchema>;
