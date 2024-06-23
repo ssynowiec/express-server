@@ -5,11 +5,24 @@ import { db } from '../../db.config';
 import { checkEventExists } from './checkEventExists';
 import { generateRandomCode } from './generateJoinCode';
 import { eq } from 'drizzle-orm';
+import { user } from '../users/users.schema';
+import { io } from '../../server';
 
 export const getAllEvents = async (req: Request, res: Response) => {
   const allEvents = await db.select().from(events);
 
   res.json(allEvents);
+};
+
+export const getEventsByAuthorId = async (req: Request, res: Response) => {
+  const { authorId } = req.params;
+
+  const eventsByAuthor = await db
+    .select()
+    .from(events)
+    .where(eq(events.authorId, authorId));
+
+  res.json(eventsByAuthor);
 };
 
 export const getEventById = async (req: Request, res: Response) => {
@@ -69,4 +82,33 @@ export const deleteEvent = async (req: Request, res: Response) => {
   await db.delete(events).where(eq(events.id, id));
 
   res.json(event[0]);
+};
+
+export const userJoinEvent = async (req: Request, res: Response) => {
+  const { code: userCode } = req.body;
+
+  const event = await db
+    .select()
+    .from(events)
+    .where(eq(events.eventCode, userCode));
+
+  if (!event.length) {
+    res.statusMessage = 'Event not found';
+    return res.status(404).json({ error: 'Event not found' });
+  }
+
+  const newUser = await db
+    .insert(user)
+    .values({ event_id: event[0].id })
+    .returning();
+
+  res.json(newUser[0].id);
+};
+
+export const getActiveUsers = async (req: Request, res: Response) => {
+  const { eventCode } = req.params;
+
+  const activeUsers = io.sockets.adapter.rooms.get(eventCode)?.size || 0;
+
+  res.json({ activeUsers });
 };
