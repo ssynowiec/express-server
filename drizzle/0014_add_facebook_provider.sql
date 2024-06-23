@@ -1,0 +1,1 @@
+ALTER TABLE "admin" ADD COLUMN "facebook_id" numeric;

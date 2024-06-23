@@ -1,0 +1,111 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1717489841538,
+      "tag": "0000_harsh_the_phantom",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1717512534567,
+      "tag": "0001_real_corsair",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1717599268466,
+      "tag": "0002_white_sandman",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1717613116811,
+      "tag": "0003_futuristic_magma",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1717613164741,
+      "tag": "0004_add_answers",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1717613195035,
+      "tag": "0005_connect_answers_with_user",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1717613400732,
+      "tag": "0006_workable_ken_ellis",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1717666286526,
+      "tag": "0007_add_date",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1718307802580,
+      "tag": "0008_medical_clea",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1718975810070,
+      "tag": "0009_add_sessions",
+      "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1719040960091,
+      "tag": "0010_lush_ultimo",
+      "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "7",
+      "when": 1719055914802,
+      "tag": "0011_volatile_stingray",
+      "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "7",
+      "when": 1719067638995,
+      "tag": "0012_gifted_moira_mactaggert",
+      "breakpoints": true
+    },
+    {
+      "idx": 13,
+      "version": "7",
+      "when": 1719078256642,
+      "tag": "0013_add_google_provider",
+      "breakpoints": true
+    },
+    {
+      "idx": 14,
+      "version": "7",
+      "when": 1719134832094,
+      "tag": "0014_add_facebook_provider",
+      "breakpoints": true
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+ALTER TABLE "admin" ADD COLUMN "google_id" numeric;
