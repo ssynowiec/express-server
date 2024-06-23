@@ -1,42 +1,30 @@
-import { cookies } from 'next/headers';
-import { cache } from 'react';
+import { Router } from 'express';
+import { parseCookies } from 'oslo/cookie';
+import { lucia } from './auth';
 
-import type { Session, User } from 'lucia';
-import { lucia } from '@/lib/auth/auth';
+export const validateSessionRoute = Router();
 
-export const validateRequest = cache(
-	async (): Promise<
-		{ user: User; session: Session } | { user: null; session: null }
-	> => {
-		const sessionId = cookies().get(lucia.sessionCookieName)?.value ?? null;
-		if (!sessionId) {
-			return {
-				user: null,
-				session: null,
-			};
-		}
+validateSessionRoute.get('/', async (req, res) => {
+  const cookies = parseCookies(req.headers.cookie);
+  const auth_session = cookies.get('auth_session');
 
-		const result = await lucia.validateSession(sessionId);
-		console.log(result);
-		// next.js throws when you attempt to set cookie when rendering page
-		try {
-			if (result.session && result.session.fresh) {
-				const sessionCookie = lucia.createSessionCookie(result.session.id);
-				cookies().set(
-					sessionCookie.name,
-					sessionCookie.value,
-					sessionCookie.attributes,
-				);
-			}
-			if (!result.session) {
-				const sessionCookie = lucia.createBlankSessionCookie();
-				cookies().set(
-					sessionCookie.name,
-					sessionCookie.value,
-					sessionCookie.attributes,
-				);
-			}
-		} catch {}
-		return result;
-	},
-);
+  if (!auth_session || auth_session === '') {
+    return res.status(404).json({ error: 'No session' });
+  }
+
+  const result = await lucia.validateSession(auth_session);
+
+  try {
+    if (result.session && result.session.fresh) {
+      const sessionCookie = lucia.createSessionCookie(result.session.id);
+      return res.appendHeader('Set-Cookie', sessionCookie.serialize());
+    }
+    if (!result.session) {
+      return res
+        .setHeader('Set-Cookie', lucia.createBlankSessionCookie().serialize())
+        .redirect('http://localhost:3000/login');
+    }
+  } catch {}
+
+  res.status(200).json(result);
+});
