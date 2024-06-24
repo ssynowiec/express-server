@@ -7,6 +7,7 @@ import { adminTable } from '../modules/admins/admins.schema';
 import { eq } from 'drizzle-orm';
 import { lucia } from '../auth/auth';
 import { generateId } from 'lucia';
+import { linkAccount } from '../auth/accountLinking';
 
 export const facebookRoutes = Router();
 
@@ -57,6 +58,23 @@ facebookRoutes.get('/callback', async (req, res) => {
 
     if (existingUser) {
       const session = await lucia.createSession(existingUser.id, {});
+
+      return res
+        .appendHeader(
+          'Set-Cookie',
+          lucia.createSessionCookie(session.id).serialize(),
+        )
+        .redirect(`${process.env.FRONTEND_URL}/admin`);
+    }
+
+    const linkedAccount = await linkAccount(
+      facebookUser.email,
+      'facebook',
+      facebookUser.id,
+    );
+
+    if (linkedAccount) {
+      const session = await lucia.createSession(linkedAccount.id, {});
 
       return res
         .appendHeader(

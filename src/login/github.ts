@@ -7,6 +7,7 @@ import { eq } from 'drizzle-orm';
 import { adminTable } from '../modules/admins/admins.schema';
 import { lucia } from '../auth/auth';
 import { generateId } from 'lucia';
+import { linkAccount } from '../auth/accountLinking';
 
 export const githubRouter = Router();
 
@@ -64,6 +65,23 @@ githubRouter.get('/callback', async (req, res) => {
     if (existingUser) {
       console.log('user exists');
       const session = await lucia.createSession(existingUser.id, {});
+
+      return res
+        .appendHeader(
+          'Set-Cookie',
+          lucia.createSessionCookie(session.id).serialize(),
+        )
+        .redirect(`${process.env.FRONTEND_URL}/admin`);
+    }
+
+    const linkedAccount = await linkAccount(
+      githubUser.email,
+      'github',
+      githubUser.id,
+    );
+
+    if (linkedAccount) {
+      const session = await lucia.createSession(linkedAccount.id, {});
 
       return res
         .appendHeader(
